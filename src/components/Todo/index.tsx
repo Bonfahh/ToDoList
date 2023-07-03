@@ -22,7 +22,7 @@ const Todo: React.FC<TodoProps> = ({
           {todosDone.includes(item) ? (
             <View style={styles(todosDone, item).doneCheckbox}>
               <Image
-                source={require('../../assets/images/check.png')}
+                source={require('@assets/images/check.png')}
                 style={styles(todosDone, item).doneImage}
                 resizeMode="contain"
               />
@@ -34,7 +34,7 @@ const Todo: React.FC<TodoProps> = ({
         <Text style={styles(todosDone, item).todoText}>{item}</Text>
         <TouchableOpacity onPress={() => handleDeleteTodo(item)}>
           <Image
-            source={require('../../assets/images/trash.png')}
+            source={require('@assets/images/trash.png')}
             style={styles(todosDone, item).trashImage}
             resizeMode="contain"
           />

@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Todo from '../../components/Todo';
-import ListEmpty from '../../components/ListEmpty';
+import Todo from '@components/Todo';
+import ListEmpty from '@components/ListEmpty';
 import {styles} from './styles';
 
 const Home = () => {
@@ -40,7 +40,7 @@ const Home = () => {
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <Image
-          source={require('../../assets/images/logo.png')}
+          source={require('@assets/images/logo.png')}
           style={styles.logo}
           resizeMode="contain"
         />
@@ -55,7 +55,7 @@ const Home = () => {
           />
           <TouchableOpacity onPress={handleAddTodo} style={styles.addButton}>
             <Image
-              source={require('../../assets/images/plus.png')}
+              source={require('@assets/images/plus.png')}
               style={styles.addButtonImage}
               resizeMode="contain"
             />

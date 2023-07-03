@@ -7,7 +7,7 @@ const ListEmpty = () => {
     <View style={styles.container}>
       <View style={styles.separator} />
       <Image
-        source={require('../../assets/images/clipboard.png')}
+        source={require('@assets/images/clipboard.png')}
         style={styles.clipboard}
         resizeMode="contain"
       />
