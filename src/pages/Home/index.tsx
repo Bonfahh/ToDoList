@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -10,30 +10,26 @@ import {
 import Todo from '@components/Todo';
 import ListEmpty from '@components/ListEmpty';
 import {styles} from './styles';
+import {TodoContext} from '@contexts/TodoContext';
+
+type TodoContextType = {
+  todos: string[];
+  todosDone: string[];
+  handleAddTodo: (todo: string) => void;
+  handleMarkTodoDone: (todo: string) => void;
+  handleDeleteTodo: (todo: string) => void;
+};
 
 const Home = () => {
-  const [todos, setTodos] = useState<string[]>([]);
-  const [todosDone, setTodosDone] = useState<string[]>([]);
+  const {todos, todosDone, handleAddTodo} = useContext(
+    TodoContext,
+  ) as TodoContextType;
+
   const [todoInput, setTodoInput] = useState<string>('');
 
-  const handleAddTodo = () => {
-    setTodos(prev => [...prev, todoInput]);
+  const addTodo = () => {
+    handleAddTodo(todoInput.trim());
     setTodoInput('');
-  };
-
-  const handleMarkTodoDone = (todo: string) => {
-    if (todosDone.includes(todo)) {
-      setTodosDone(prev => prev.filter(t => t !== todo));
-    } else {
-      setTodosDone(prev => [...prev, todo]);
-    }
-  };
-
-  const handleDeleteTodo = (todo: string) => {
-    if (todosDone.includes(todo)) {
-      setTodosDone(prev => prev.filter(t => t !== todo));
-    }
-    setTodos(prev => prev.filter(t => t !== todo));
   };
 
   return (
@@ -53,7 +49,14 @@ const Home = () => {
             placeholder="Adicione uma nova tarefa"
             style={styles.input}
           />
-          <TouchableOpacity onPress={handleAddTodo} style={styles.addButton}>
+          <TouchableOpacity
+            disabled={!todoInput}
+            onPress={addTodo}
+            style={
+              !todoInput
+                ? [styles.addButton, styles.disabled]
+                : styles.addButton
+            }>
             <Image
               source={require('@assets/images/plus.png')}
               style={styles.addButtonImage}
@@ -80,14 +83,7 @@ const Home = () => {
           <FlatList
             data={todos}
             ListEmptyComponent={<ListEmpty />}
-            renderItem={({item}) => (
-              <Todo
-                item={item}
-                todosDone={todosDone}
-                handleDeleteTodo={handleDeleteTodo}
-                handleMarkTodoDone={handleMarkTodoDone}
-              />
-            )}
+            renderItem={({item}) => <Todo item={item} />}
           />
         </View>
       </View>

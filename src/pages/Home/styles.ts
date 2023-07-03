@@ -80,4 +80,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     marginRight: 10,
   },
+  disabled: {
+    opacity: 0.6,
+  },
 });
